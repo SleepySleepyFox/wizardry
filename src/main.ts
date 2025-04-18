@@ -12,7 +12,9 @@ const canvas = document.querySelector<HTMLCanvasElement>('#canvas')
     canvas.width = innerWidth
     const ctx = canvas.getContext("2d")
     if(!ctx) return;
-    ctx.scale(2,2)
+    const scale = canvas.width / (map.width * map.size)
+    // ctx.translate(innerWidth / map.width, innerHeight / map.height)
+    ctx.scale(scale,scale)
     ctx.imageSmoothingEnabled = false
     map.draw(ctx)
     player.draw(ctx)
