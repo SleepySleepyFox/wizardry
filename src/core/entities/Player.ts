@@ -10,11 +10,11 @@ export class Player {
     inJump: boolean
 
     constructor(src: string) {
-        this.width = 16 / 2;
-        this.height = 16 / 2;
+        this.width = 32;
+        this.height = 32;
         this.image = this.loadSprite(src);
         this.pos = {x: 25,y: 25}
-        this.speed = 2;
+        this.speed = 5;
         this.listenForKeyEvents()
         this.inJump = false
     }
