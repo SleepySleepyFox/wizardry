@@ -22,12 +22,12 @@ export class Map{
         //               0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         this.tiles = this.noize()
         this.mapSize = 2304;
-        this.tileSide = 32
-        this.height = innerHeight;
-        this.width = innerWidth;
+        this.tileSide = 16
+        this.height = 30 * this.tileSide;
+        this.width = 48 * this.tileSide;
         // this.draw()
         this.brick = new Image();
-        this.brick.src = '/brick_01.png';
+        this.brick.src = '/Dungeon_Tileset.png';
 
         this.brickMessy = new Image();
         this.brickMessy.src = '/brick_messy_01.png';
@@ -51,43 +51,38 @@ export class Map{
 
     draw(ctx: CanvasRenderingContext2D) {
         if (!this.imagesLoaded) return;
+            for (let y = 0; y < this.height / this.tileSide; y++) {
+                for (let x = 0; x < this.width / this.tileSide; x++) {
+                    const index = y * this.width + x;
+                    const tile = this.tiles[index];
+                    const img = tile > 1 ? this.brick : this.brickMessy;
+                    ctx.drawImage(this.brick, 
+                        this.tileSide * 6,
+                        0, 
 
-        for (let y = 0; y < this.height / this.tileSide; y++) {
-            for (let x = 0; x < this.width / this.tileSide; x++) {
-                const index = y * this.width + x;
-                const tile = this.tiles[index];
-                const img = tile > 0 ? this.brick : this.brickMessy;
-                ctx.drawImage(img, x * this.tileSide, y * this.tileSide, this.tileSide, this.tileSide);
+                        this.tileSide, 
+                        this.tileSide, 
+                        this.tileSide * x, 
+                        this.tileSide * y, 
+                        this.tileSide, 
+                        this.tileSide);
+                }
             }
-        }
     }
 
     noize(){
         let grid = []
         const nodes = 2304
 
-        const random_vecto_unit = () => {
-            let tetha = Math.random() * 2 * Math.PI
-            return Math.cos(tetha)
+        const random_vecto_unit = (x : number) => {
+            let tetha = Math.random() *  Math.PI
+            return Math.floor(tetha) + x
         }
-
-        // const perlinGet = ({x,y}: {x: number, y: number}) => {
-        //     let x0 = Math.floor(x);
-        //     let x1 = x0 + 1;
-        //     let y0 = Math.floor(y);
-        //     let y1 = y0 + 1
-        // }
-
-        // function dot_prod_grid(x : number, y : number, vert_x : number, vert_y : number){
-        //     var g_vect = gradients[vert_y][vert_x];
-        //     var d_vect = {x: x - vert_x, y: y - vert_y};
-        //     return d_vect.x * g_vect.x + d_vect.y * g_vect.y;
-        // }
 
         for(let i = 0; i < nodes; i++){
             // let row = []
             for(let j = 0; j < nodes; j++){
-                grid.push(random_vecto_unit())
+                grid.push(random_vecto_unit(Math.sin(i)))
             }
             // grid.push(row)
         }

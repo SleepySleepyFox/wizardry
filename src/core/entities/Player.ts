@@ -10,11 +10,11 @@ export class Player {
     inJump: boolean
 
     constructor(src: string) {
-        this.width = 32;
-        this.height = 32;
+        this.width = 16;
+        this.height = 16;
         this.image = this.loadSprite(src);
         this.pos = {x: 25,y: 25}
-        this.speed = 5;
+        this.speed = 3;
         this.listenForKeyEvents()
         this.inJump = false
     }
@@ -26,7 +26,7 @@ export class Player {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        ctx.drawImage(this.image, this.pos.x, this.pos.y, this.width, this.height);
+        ctx.drawImage(this.image, 16 * 2,16,16,16, this.pos.x, this.pos.y, this.width, this.height);
         this.move()
     }
 
@@ -42,9 +42,9 @@ export class Player {
     }
 
     move(){
-        if (this.keys['w']) this.pos.y -= this.speed;
-        if (this.keys['s']) this.pos.y += this.speed;
-        if (this.keys['a']) this.pos.x -= this.speed;
-        if (this.keys['d']) this.pos.x += this.speed;
+        if (this.keys['w'] && this.pos.y > 0) this.pos.y -= this.speed;
+        if (this.keys['s'] && this.pos.y !< 464) this.pos.y += this.speed;
+        if (this.keys['a'] && this.pos.x !> 0) this.pos.x -= this.speed;
+        if (this.keys['d'] && this.pos.x <= 624) this.pos.x += this.speed;
     }
 }

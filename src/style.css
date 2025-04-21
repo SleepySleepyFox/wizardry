@@ -1,13 +1,15 @@
 body{
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100wv;
     padding: 0;
     margin: 0;
-    /* overflow: hidden; */
-    display: flex;
-    justify-content: center;
+    /* overflow: clip; */
 }
 
 #canvas{
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    width: 100%;
+    height: 100%;
 
 }
